@@ -1,0 +1,1054 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ديوان العرب - الموسوعة الشعرية الاحترافية</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        gold: {
+                            100: '#fef9c3',
+                            300: '#fde047',
+                            400: '#facc15',
+                            500: '#eab308',
+                            600: '#ca8a04',
+                            700: '#a16207',
+                        },
+                        royal: {
+                            800: '#0f172a',
+                            900: '#090d16',
+                            950: '#04070d',
+                        }
+                    },
+                    fontFamily: {
+                        cairo: ['Cairo', 'sans-serif'],
+                        amiri: ['Amiri', 'serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Cairo:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        body {
+            font-family: 'Amiri', sans-serif;
+            user-select: none;
+            -webkit-user-select: none;
+            background-color: #04070d;
+        }
+        .poem-text {
+            font-family: 'Amiri', serif;
+            user-select: text;
+            -webkit-user-select: text;
+        }
+        .glass-card {
+            background: rgba(15, 23, 42, 0.75);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(234, 179, 8, 0.18);
+        }
+        .light .glass-card {
+    background: rgba(244, 239, 227, 0.95) !important;
+    border: 1px solid rgba(194, 142, 33, 0.3) !important;
+    box-shadow: 0 10px 30px -5px rgba(60, 40, 10, 0.08) !important;
+}
+
+/* ألوان النصوص والعناوين في الوضع الدافئ */
+.light h1, .light h2, .light h3, .light h4, .light .poet-name {
+    color: #2b1810 !important;
+}
+.light .text-slate-400, .light .text-slate-300 {
+    color: #5c4d41 !important;
+}
+
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #04070d;
+        }
+        .light ::-webkit-scrollbar-track {
+            background: #f1f5f9;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #a16207;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #ca8a04;
+        }
+        @keyframes slideUp {
+            from { transform: translateY(100%) translateX(-50%); opacity: 0; }
+            to { transform: translateY(0) translateX(-50%); opacity: 1; }
+        }
+        .toast-animate {
+            animation: slideUp 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+        .badge-verified {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            color: #3b82f6;
+            filter: drop-shadow(0 0 4px rgba(59, 130, 246, 0.5));
+        }
+        /* إصلاح وضوح كافة الكلمات والنصوص والفرعيات للوضع الكريمي */
+        .light, .light body {
+            color: #1c1917 !important;
+        }
+
+        .light .text-slate-100, 
+        .light .text-slate-200, 
+        .light .text-slate-300, 
+        .light .text-slate-400,
+        .light .text-slate-500 {
+            color: #292524 !important;
+        }
+
+        /* العناوين وأسماء الشعراء */
+        .light h1, .light h2, .light h3, .light h4, .light .poet-name, .light .font-black {
+            color: #1c1917 !important;
+        }
+
+        /* أبيات القصيدة: الصدر والعجز */
+        .light #poem-verses-container div,
+        .light #poem-verses-container p,
+        .light #poem-verses-container span {
+            color: #1c1917 !important;
+        }
+
+        .light #poem-verses-container .text-amber-300,
+        .light #poem-verses-container .text-amber-400,
+        .light .text-amber-300 {
+            color: #854d0e !important;
+        }
+
+        /* حقول المدخلات والبحث */
+        .light input, .light textarea, .light select {
+            color: #1c1917 !important;
+            background-color: #eae3d2 !important;
+        }
+
+
+        
+    </style>
+</head>
+<body class="bg-royal-950 text-slate-100 min-h-screen transition-colors duration-300 flex flex-col justify-between dark:bg-royal-950 dark:text-slate-100 bg-slate-50 text-slate-800" id="body-app">
+
+    <!-- Header / Navbar -->
+    <header class="sticky top-0 z-40 border-b border-gold-600/20 glass-card px-4 py-3.5 shadow-2xl">
+        <div class="max-w-7xl mx-auto flex items-center justify-between gap-4">
+            <!-- Logo -->
+            <div class="flex items-center gap-3.5 cursor-pointer" onclick="navigateTo('poets')">
+                <div class="w-11 h-11 rounded-2xl bg-gradient-to-tr from-gold-700 via-gold-500 to-amber-300 flex items-center justify-center text-slate-950 shadow-lg shadow-gold-500/20 transform hover:rotate-6 transition-transform">
+                    <i class="fa-solid fa-feather-pointed text-2xl"></i>
+                </div>
+                <div>
+                    <div class="flex items-center gap-1.5">
+                        <h1 class="font-black text-2xl tracking-wide bg-gradient-to-r from-gold-300 via-amber-400 to-gold-600 bg-clip-text text-transparent">ديوان العرب</h1>
+                        <span class="text-[10px] bg-gold-500/10 text-gold-400 border border-gold-500/30 px-2 py-0.5 rounded-full font-bold"> موسوعة الشعراء</span>
+                    </div>
+                    <p class="text-xs text-slate-400 dark:text-slate-400 light:text-slate-600">كُبرى دواوين وشعراء الأدب العربي</p>
+                </div>
+            </div>
+
+            <!-- Search Bar (Desktop) -->
+            <div class="flex-1 max-w-lg hidden md:block">
+                <div class="relative">
+                    <input type="text" id="search-input" oninput="handleSearch()" placeholder="ابحث عن شاعر، قصيدة، عصر، أو بيت شعر..." class="w-full bg-royal-900/90 dark:bg-royal-900/90 light:bg-slate-100 border border-gold-600/30 rounded-full py-2.5 pr-11 pl-4 text-sm focus:outline-none focus:border-gold-500 focus:ring-1 focus:ring-gold-500 transition-all text-slate-200 dark:text-slate-200 light:text-slate-800">
+                    <i class="fa-solid fa-magnifying-glass absolute right-4 top-3 text-gold-500/70"></i>
+                </div>
+            </div>
+
+            <!-- Header Controls -->
+            <div class="flex items-center gap-2.5">
+                <!-- Favorites Button -->
+                <button onclick="navigateTo('favorites')" class="px-3.5 py-2 rounded-full border border-gold-600/30 bg-gold-500/10 hover:bg-gold-500/20 text-gold-400 text-xs font-bold flex items-center gap-2 transition-all shadow-md">
+                    <i class="fa-solid fa-bookmark text-gold-400"></i>
+                    <span class="hidden sm:inline">المفضلة</span>
+                    <span id="fav-count-badge" class="bg-gold-500 text-slate-950 font-bold px-1.5 py-0.2 rounded-full text-[10px]">0</span>
+                </button>
+
+                <!-- Theme Toggle Button -->
+                <button onclick="toggleTheme()" class="w-10 h-10 rounded-full border border-gold-600/30 flex items-center justify-center hover:bg-gold-500/10 text-gold-400 transition-all" title="تغيير المظهر">
+                    <i class="fa-solid fa-moon dark:hidden text-lg"></i>
+                    <i class="fa-solid fa-sun hidden dark:block text-lg"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Search Bar (Mobile) -->
+        <div class="mt-2.5 md:hidden px-2">
+            <div class="relative">
+                <input type="text" id="search-input-mobile" oninput="handleSearchMobile()" placeholder="ابحث عن شاعر، قصيدة، أو بيت شعر..." class="w-full bg-royal-900/90 dark:bg-royal-900/90 light:bg-slate-100 border border-gold-600/30 rounded-full py-2 pr-10 pl-4 text-sm focus:outline-none focus:border-gold-500 transition-all text-slate-200 dark:text-slate-200 light:text-slate-800">
+                <i class="fa-solid fa-magnifying-glass absolute right-3.5 top-2.5 text-gold-500/70"></i>
+            </div>
+        </div>
+    </header>
+
+    <main class="max-w-7xl mx-auto px-4 py-8 flex-grow w-full">
+
+        <!-- Breadcrumbs Path -->
+        <div id="breadcrumb-container" class="mb-6 flex items-center gap-2 text-xs sm:text-sm text-slate-400">
+            <!-- Dynamic Breadcrumb -->
+        </div>
+
+        <!-- VIEW 1: Poets Grid View -->
+        <section id="view-poets" class="space-y-6">
+            <div class="text-center max-w-2xl mx-auto space-y-2 mb-6">
+                <h2 class="text-3xl sm:text-4xl font-black text-slate-100 dark:text-slate-100 light:text-slate-900 tracking-tight">أعلام الفصاحة والشعر العربي</h2>
+                <p class="text-slate-400 text-xs sm:text-sm">تصفح دواوين وقصائد نخبة شعراء العرب  عبر مختلف العصور </p>
+                <div class="w-28 h-1 bg-gradient-to-r from-transparent via-gold-500 to-transparent mx-auto rounded-full mt-3"></div>
+            </div>
+
+            <!-- Eras Filter Badges -->
+            <div class="flex items-center justify-center flex-wrap gap-2 pb-4 overflow-x-auto" id="eras-filter-bar">
+                <!-- Dynamic Eras Filters -->
+            </div>
+
+            <!-- Poets Cards Grid -->
+            <div id="poets-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                <!-- Cards Inserted Dynamically -->
+            </div>
+        </section>
+
+        <!-- VIEW 2: Selected Poet's Poems List -->
+        <section id="view-poems" class="hidden space-y-6">
+            <!-- Poet Header Banner -->
+            <div id="poet-header" class="glass-card p-6 sm:p-8 rounded-3xl border border-gold-500/30 relative overflow-hidden shadow-2xl">
+                <!-- Dynamic Poet Banner -->
+            </div>
+
+            <div class="flex items-center justify-between">
+                <h3 class="text-xl font-bold text-gold-400 flex items-center gap-2">
+                    <i class="fa-solid fa-scroll text-gold-500"></i>
+                    قصائد الشاعر
+                </h3>
+                <button onclick="navigateTo('poets')" class="text-xs sm:text-sm text-slate-400 hover:text-gold-400 flex items-center gap-1.5 transition-colors">
+                    <i class="fa-solid fa-arrow-right"></i>
+                    العودة لقائمة الشعراء
+                </button>
+            </div>
+
+            <!-- Poems Grid -->
+            <div id="poems-grid" class="grid grid-cols-1 md:grid-cols-2 gap-5">
+                <!-- Poems Cards dynamically inserted -->
+            </div>
+        </section>
+
+        <!-- VIEW 3: Single Poem Viewer -->
+        <section id="view-single-poem" class="hidden max-w-4xl mx-auto space-y-6">
+            <!-- Control Header Bar -->
+            <div class="flex flex-wrap items-center justify-between gap-4 glass-card p-4 rounded-2xl border border-gold-500/20 shadow-xl">
+                <button onclick="navigateTo('poems')" class="text-xs sm:text-sm bg-slate-800/80 dark:bg-slate-800/80 light:bg-slate-200 hover:bg-gold-500/20 text-gold-400 border border-gold-500/30 px-4 py-2 rounded-xl flex items-center gap-2 transition-all font-semibold">
+                    <i class="fa-solid fa-arrow-right"></i>
+                    العودة لقائمة القصائد
+                </button>
+
+                <!-- Font Resizer, Bookmark & Copy Verses Button -->
+                <div class="flex flex-wrap items-center gap-3">
+                    <!-- Font Control -->
+                    <div class="flex items-center bg-royal-900/90 dark:bg-royal-900/90 light:bg-slate-100 rounded-xl border border-gold-500/20 p-1">
+                        <button onclick="changeFontSize(-2)" class="w-8 h-8 flex items-center justify-center text-slate-300 hover:text-gold-400 font-bold text-sm" title="تصغير الخط">أ-</button>
+                        <span id="font-size-label" class="text-xs px-2 text-gold-400 font-mono font-bold">22px</span>
+                        <button onclick="changeFontSize(2)" class="w-8 h-8 flex items-center justify-center text-slate-300 hover:text-gold-400 font-bold text-sm" title="تكبير الخط">أ+</button>
+                    </div>
+
+                    <!-- Bookmark Toggle Button -->
+                    <button id="bookmark-btn" onclick="toggleCurrentPoemFavorite()" class="px-4 py-2 rounded-xl border border-gold-500/30 bg-slate-800 dark:bg-slate-800 light:bg-slate-200 text-xs font-bold text-slate-300 hover:text-gold-400 flex items-center gap-1.5 transition-all">
+                        <i class="fa-regular fa-bookmark text-gold-400" id="bookmark-icon"></i>
+                        <span id="bookmark-text">حفظ في المفضلة</span>
+                    </button>
+
+                    <!-- COPY VERSES ONLY BUTTON -->
+                    <button onclick="copyCurrentPoemLinesOnly()" class="bg-gradient-to-r from-gold-600 via-amber-500 to-gold-400 hover:from-gold-500 hover:to-amber-300 text-slate-950 font-black px-5 py-2.5 rounded-xl flex items-center gap-2 shadow-lg shadow-gold-600/25 transition-all transform active:scale-95 text-xs sm:text-sm">
+                        <i class="fa-solid fa-copy text-base"></i>
+                        <span>نسخ الأبيات فقط</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Poem Card Showcase -->
+            <div class="glass-card rounded-3xl p-6 sm:p-12 border border-gold-500/30 shadow-2xl relative overflow-hidden">
+                <div class="absolute inset-0 bg-[radial-gradient(#eab308_1px,transparent_1px)] [background-size:20px_20px] opacity-5 pointer-events-none rounded-3xl"></div>
+
+                <!-- Poem Header Info -->
+                <div class="text-center space-y-3 pb-8 border-b border-gold-500/20">
+                    <div class="inline-block px-3 py-1 bg-gold-500/10 border border-gold-500/30 text-gold-400 text-xs font-bold rounded-full mb-1" id="poem-category-tag">غزل وحكمة</div>
+                    <h2 id="poem-title" class="text-3xl sm:text-5xl font-black text-gold-400 tracking-wide font-amiri leading-tight"></h2>
+                    
+                    <div class="flex items-center justify-center gap-2 text-slate-300 text-sm font-semibold pt-2" id="poem-poet-badge-container">
+                        <!-- Dynamic Poet Name and Verified SVG -->
+                    </div>
+                </div>
+
+                <!-- Poem Verses Render Slot -->
+                <div id="poem-verses-container" class="py-10 space-y-6 text-center leading-relaxed">
+                    <!-- Verses dynamically rendered -->
+                </div>
+
+                <!-- Bottom Decorative Footer -->
+                <div class="pt-8 border-t border-gold-500/20 text-center flex items-center justify-center gap-3">
+                    <div class="w-12 h-px bg-gold-500/30"></div>
+                    <i class="fa-solid fa-feather-pointed text-gold-500/50 text-xl"></i>
+                    <div class="w-12 h-px bg-gold-500/30"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- VIEW 4: Favorites View -->
+        <section id="view-favorites" class="hidden space-y-6">
+            <div class="flex items-center justify-between">
+                <div>
+                    <h3 class="text-2xl font-black text-gold-400 flex items-center gap-2">
+                        <i class="fa-solid fa-star text-gold-500"></i>
+                        القصائد المفضلة
+                    </h3>
+                    <p class="text-xs text-slate-400 mt-1">جميع القصائد التي قمت بحفظها للوصول السريع إليها</p>
+                </div>
+                <button onclick="navigateTo('poets')" class="text-xs text-slate-400 hover:text-gold-400 flex items-center gap-1.5 transition-colors">
+                    <i class="fa-solid fa-arrow-right"></i>
+                    العودة للتصفح
+                </button>
+            </div>
+
+            <div id="favorites-grid" class="grid grid-cols-1 md:grid-cols-2 gap-5">
+                <!-- Favorites inserted dynamically -->
+            </div>
+        </section>
+
+        <!-- VIEW 5: Search Results View -->
+        <section id="view-search-results" class="hidden space-y-6">
+            <h3 class="text-xl font-bold text-gold-400 mb-4" id="search-results-title">نتائج البحث</h3>
+            <div id="search-results-grid" class="grid grid-cols-1 md:grid-cols-2 gap-5">
+                <!-- Search items -->
+            </div>
+        </section>
+    </main>
+
+    <!-- Toast Notification -->
+    <div id="toast-notification" class="fixed bottom-8 left-1/2 -translate-x-1/2 z-50 bg-royal-900 border border-gold-500/80 text-gold-300 px-6 py-3.5 rounded-full shadow-2xl flex items-center gap-3 hidden toast-animate backdrop-blur-xl">
+        <i class="fa-solid fa-circle-check text-green-400 text-xl"></i>
+        <span id="toast-message" class="text-xs sm:text-sm font-bold">تم النسخ بنجاح!</span>
+    </div>
+
+    <!-- Footer -->
+    <footer class="border-t border-gold-600/20 glass-card py-6 mt-16">
+        <div class="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-4 text-slate-400 text-xs sm:text-sm">
+            <div class="flex items-center gap-2 font-medium">
+                <span>ديوان العرب الفاخر</span>
+                <span>•</span>
+                <span>جميع الحقوق محفوظة © 2026</span>
+            </div>
+
+            <!-- Developer Signature & Verified Badge SVG -->
+            <div class="flex items-center gap-2 bg-royal-900/80 dark:bg-royal-900/80 light:bg-slate-200 px-4 py-2 rounded-full border border-gold-500/25 shadow-md">
+                <span class="text-slate-400 font-medium">تطوير وتصميم:</span>
+                <span class="font-black text-gold-400">"محمد رسول " عنبر</span>
+                
+                <!-- Blue Verified Badge SVG -->
+                <span class="badge-verified" title="مطور موثق">
+                    <svg class="w-4 h-4 fill-current text-blue-500" viewBox="0 0 24 24">
+                        <path d="M22.5 12.5c0-1.58-.875-2.95-2.148-3.6.154-.435.238-.905.238-1.4 0-2.21-1.79-3.99-4-3.99-.495 0-.965.084-1.4.238C14.55 2.475 13.18 1.6 11.6 1.6c-1.58 0-2.95.875-3.6 2.148-.435-.154-.905-.238-1.4-.238-2.21 0-3.99 1.78-3.99 4 0 .495.084.965.238 1.4C1.575 9.55.7 10.92.7 12.5c0 1.58.875 2.95 2.148 3.6-.154.435-.238.905-.238 1.4 0 2.21 1.79 3.99 4 3.99.495 0 .965-.084 1.4-.238 1.05 1.273 2.42 2.148 4 2.148 1.58 0 2.95-.875 3.6-2.148.435.154.905.238 1.4.238 2.21 0 3.99-1.78 3.99-4 0-.495-.084-.965-.238-1.4 1.273-1.05 2.148-2.42 2.148-4zM9.9 16.75l-4.25-4.25 1.41-1.41L9.9 13.93l7.09-7.09 1.41 1.41L9.9 16.75z"/>
+                    </svg>
+                </span>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // SVG verified badge markup helper
+        const VERIFIED_BADGE_SVG = `
+            <span class="badge-verified inline-block mr-1" title="شاعر موثق">
+                <svg class="w-4 h-4 fill-current text-blue-500" viewBox="0 0 24 24">
+                    <path d="M22.5 12.5c0-1.58-.875-2.95-2.148-3.6.154-.435.238-.905.238-1.4 0-2.21-1.79-3.99-4-3.99-.495 0-.965.084-1.4.238C14.55 2.475 13.18 1.6 11.6 1.6c-1.58 0-2.95.875-3.6 2.148-.435-.154-.905-.238-1.4-.238-2.21 0-3.99 1.78-3.99 4 0 .495.084.965.238 1.4C1.575 9.55.7 10.92.7 12.5c0 1.58.875 2.95 2.148 3.6-.154.435-.238.905-.238 1.4 0 2.21 1.79 3.99 4 3.99.495 0 .965-.084 1.4-.238 1.05 1.273 2.42 2.148 4 2.148 1.58 0 2.95-.875 3.6-2.148.435.154.905.238 1.4.238 2.21 0 3.99-1.78 3.99-4 0-.495-.084-.965-.238-1.4 1.273-1.05 2.148-2.42 2.148-4zM9.9 16.75l-4.25-4.25 1.41-1.41L9.9 13.93l7.09-7.09 1.41 1.41L9.9 16.75z"/>
+                </svg>
+            </span>
+        `;
+
+        // Extensive Master Database for Poets & Poems
+        const poetsData = [
+            {
+                id: 'al-mutanabbi',
+                name: 'المتنبي',
+                fullTitle: 'أحمد بن الحسين (أبو الطيب المتنبي)',
+                era: 'العصر العباسي',
+                avatar: 'https://i.postimg.cc/yYKbWWL2/av-9c4e01d46941e6cbad1efa98c78793c3.webp?w=200&auto=format&fit=crop&q=80',
+                bio: 'شاعر العرب الأكبر، وأحد مفاخر الأدب العربي على مر العصور. تميز بخصوبة الخيال، والاعتزاز بالنفس، وسبك الحكمة الشديدة في شعره.',
+                poems: [
+                    {
+                        id: 'm-1',
+                        title: 'على قدر أهل العزم تأتي العزائم',
+                        category: 'حكمة وفخر',
+                        verses: [
+                            { chest: 'عَلى قَدرِ أَهلِ العَزمِ تَأتي العَزائِمُ', margin: 'وَتَأتي عَلى قَدرِ الكِرامِ المَكارِمُ' },
+                            { chest: 'وَتَعظُمُ في عَينِ الصَغيرِ صِغارُها', margin: 'وَتَصغُرُ في عَينِ العَظيمِ العَظائِمُ' },
+                            { chest: 'يُكَلِّفُ سَيفُ الدَولَةِ الجيشَ عَبئَهُ', margin: 'وَقَد عَجَزَت عَنهُ الجُيوشُ الخَضارِمُ' },
+                            { chest: 'سَقَتها الغَمامُ البيضُ قَبلَ نُزولِهِ', margin: 'فَلَمّا دَنا مِنها سَقَتها الجَماجِمُ' }
+                        ]
+                    },
+                    {
+                        id: 'm-2',
+                        title: 'الخيل والليل والبيداء تعرفني',
+                        category: 'فخر وشجاعة',
+                        verses: [
+                            { chest: 'الخَيلُ وَاللَيلُ وَالبَيداءُ تَعرِفُني', margin: 'وَالسَيفُ وَالرُمحُ وَالقِرطاسُ وَالقَلَمُ' },
+                            { chest: 'صَحِبتُ في الفَلَواتِ الوَحشَ مُنفَرِداً', margin: 'حَتّى تَعَجَّبَ مِنّي القورُ وَالأَكَمُ' },
+                            { chest: 'أَنا الَّذي نَظَرَ الأَعمى إِلى أَدَبي', margin: 'وَأَسمَعَت كَلِماتي مَن بِهِ صَمَمُ' }
+                        ]
+                    },
+                    {
+                        id: 'm-3',
+                        title: 'واحَرّ قَلباهُ مِمَّن قَلبُهُ شَبِمُ',
+                        category: 'عتاب وحكمة',
+                        verses: [
+                            { chest: 'واحَرَّ قَلباهُ مِمَّن قَلبُهُ شَبِمُ', margin: 'وَمَن بِجِسمي وَحالي عِندَهُ سَقَمُ' },
+                            { chest: 'مالي أُكَتِّمُ حُبّاً قَد بَغى جَسَدي', margin: 'وَتَدَّعي حُبَّ سَيفِ الدَولَةِ الأُمَمُ' },
+                            { chest: 'يا أَعدَلَ الناسِ إِلّا في مُعامَلَتي', margin: 'فيكَ الخِصامُ وَأَنتَ الخَصمُ وَالحَكَمُ' }
+                        ]
+                    }
+                ]
+            },
+            {
+                id: 'ahmed-shawqi',
+                name: 'أحمد شوقي',
+                fullTitle: 'أمير الشعراء (أحمد شوقي)',
+                era: 'العصر الحديث',
+                avatar: 'https://i.postimg.cc/YCHMrpWX/16342123729902004.jpg?w=200&auto=format&fit=crop&q=80',
+                bio: 'بايعه شعراء العرب أميراً للشعر في العصر الحديث. امتاز بأسلوبه البليغ الرائع وقصائده الوطنية والدينية والتاريخية.',
+                poems: [
+                    {
+                        id: 'sh-1',
+                        title: 'نهج البردة - ريم على القاع',
+                        category: 'مديح نبوي',
+                        verses: [
+                            { chest: 'رِمٌ عَلى القاعِ بَينَ البانِ وَالعَلَمِ', margin: 'أَحَلَّ سَفكَ دَمي في الأَشهُرِ الحُرُمِ' },
+                            { chest: 'رَمى القَضاءُ بِعَينَي جُؤذَرٍ أَسَداً', margin: 'يا مُدِرَكَ الصَيدِ مَأخوذٌ عَلى أُمَمِ' },
+                            { chest: 'يا لَائِمي في هَواهُ وَالهَوى قَدَرٌ', margin: 'لَو شِفتَ وَجهَ الَّذي أَهواهُ لَم تَلُمِ' }
+                        ]
+                    },
+                    {
+                        id: 'sh-2',
+                        title: 'قم للمعلم وفّه التبجيلا',
+                        category: 'أخلاق وتعليم',
+                        verses: [
+                            { chest: 'قُم لِلمُعَلِّمِ وَفِّهِ التَبجيلا', margin: 'كادَ المُعَلِّمُ أَن يَكونَ رَسولا' },
+                            { chest: 'أَعَلِمتَ أَشرَفَ أَو أَجَلَّ مِنَ الَّذي', margin: 'يَبني وَيُنشِئُ أَنفُساً وَعُقولا' },
+                            { chest: 'سُبحانَكَ اللَّهُمَّ خَيرَ مُعَلِّمٍ', margin: 'عَلَّمتَ بِالقَلَمِ القُرونَ الأولى' }
+                        ]
+                    }
+                ]
+            },
+            {
+                id: 'nizar-qabbani',
+                name: 'نزار قباني',
+                fullTitle: 'شاعر الحب والدبلوماسية',
+                era: 'العصر المعاصر',
+                avatar: 'https://i.postimg.cc/pTNB717J/Nizar-Qabbani-Forward-magazine-734x1024.jpg?w=200&auto=format&fit=crop&q=80',
+                bio: 'دبلوماسي وشاعر سوري معاصر، يُعد أحد ألمع الشعراء المعاصرين وأكثرهم تأثيراً في شعر الحب، الغزل والوطنية.',
+                poems: [
+                    {
+                        id: 'n-1',
+                        title: 'قارئة الفنجان',
+                        category: 'غزل ورومانسية',
+                        verses: [
+                            { chest: 'جَلَسَت والخَوْفُ بِعَيْنَيْها', margin: 'تَتَأَمَّلُ فِنْجانِي المَقْلُوبْ' },
+                            { chest: 'قالَتْ: يا وَلَدِي لا تَحْزَنْ', margin: 'فالحُبُّ عَلَيْكَ هُوَ المَكْتُوبْ' },
+                            { chest: 'يا وَلَدِي قَدْ مَاتَ شَهيداً', margin: 'مَنْ ماتَ على دِينِ المَحْبُوبْ' }
+                        ]
+                    },
+                    {
+                        id: 'n-2',
+                        title: 'أحسنتِ غزلًا يا دمشق',
+                        category: 'وطنيات',
+                        verses: [
+                            { chest: 'قادِمُونَ مِنَ الشَّامِ تَمْشِي مَعَنا', margin: 'ياسَمينَاتُ الشَّامِ فِي الوِدْيانِ' },
+                            { chest: 'شَاعِرٌ أَنْكَرَ الزَّمَانُ عَلَيْهِ', margin: 'أَنَّهُ عَاشَ فِي هَوَى عَمَّانِ' }
+                        ]
+                    }
+                ]
+            },
+            {
+                id: 'mahmoud-darwish',
+                name: 'محمود درويش',
+                fullTitle: 'شاعر القضية والحرية',
+                era: 'العصر المعاصر',
+                avatar: 'https://i.postimg.cc/BnLH0BxG/darwishsssssss.jpg?w=200&auto=format&fit=crop&q=80',
+                bio: 'شاعر وأديب فلسطيني ارتبط اسمه بالثورة والوطن. يُعد أحد أبرز من طوروا الشعر العربي الحديث وصاغوا رموزه.',
+                poems: [
+                    {
+                        id: 'd-1',
+                        title: 'على هذه الأرض ما يستحق الحياة',
+                        category: 'وطني ورمزية',
+                        verses: [
+                            { chest: 'عَلَى هَذِهِ الأَرْضِ مَا يَسْتَحِقُّ الحَيَاةْ', margin: 'تَرَدُّدُ أَبْرِيلَ، رَائِحَةُ الخُبْزِ فِي الفَجْرِ' },
+                            { chest: 'آَرَاءُ امْرَأَةٍ فِي الرِّجَالِ، كُتُبُ العُشَّاقِ', margin: 'أَوَّلُ الحُبِّ، عُشْبٌ عَلَى حَجَرٍ' },
+                            { chest: 'وَكَانَتْ تُسَمَّى فِلَسْطِين', margin: 'صَارَتْ تُسَمَّى فِلَسْطِين' }
+                        ]
+                    },
+                    {
+                        id: 'd-2',
+                        title: 'سجل أنا عربي',
+                        category: 'فخر واعتزاز',
+                        verses: [
+                            { chest: 'سَجِّلْ! أَنَا عَرَبِيّ', margin: 'وَرَقْمُ بِطَاقَتِي خَمْسُونَ أَلْفاً' },
+                            { chest: 'وَأَطْفَالِي ثَمَانِيَةٌ', margin: 'وَتَاسِعُهُمْ سَيَأْتِي بَعْدَ صَيْفٍ!' }
+                        ]
+                    }
+                ]
+            },
+            {
+                id: 'antara',
+                name: 'عنترة بن شداد',
+                fullTitle: 'فارس بني عبس (عنترة)',
+                era: 'العصر الجاهلي',
+                avatar: 'https://i.postimg.cc/prNv7xQg/43666362212.jpg?w=200&auto=format&fit=crop&q=80',
+                bio: 'من أشهر فرسان وشعراء العصر الجاهلي صاحب إحدى المعلقات الشهيرة، امتاز بشعر الفروسية والحب العذري في عبلة.',
+                poems: [
+                    {
+                        id: 'an-1',
+                        title: 'معلقة عنترة - هل غادر الشعراء',
+                        category: 'معلقات وفروسية',
+                        verses: [
+                            { chest: 'هَل غادَرَ الشُعَراءُ مِن مُتَرَدَّمِ', margin: 'أَم هَل عَرَفتَ الدارَ بَعدَ تَوَهُّمِ' },
+                            { chest: 'يا دارَ عَبلَةَ بِالجِواءِ تَكَلَّمي', margin: 'وَعِمي صَباحاً دارَ عَبلَةَ وَاِسلَمي' },
+                            { chest: 'وَلَقَد ذَكَرتُكِ وَالرِماحُ نَواهِلاً', margin: 'مِنّي وَبيضُ الهِندِ تَقطُرُ مِن دَمي' },
+                            { chest: 'فَوَدَدتُ تَقَبيلَ السُيوفِ لأَنَّها', margin: 'لَمَعَت كَبارِقِ ثَغرِكِ المُتَبَسِّمِ' }
+                        ]
+                    }
+                ]
+            },
+            {
+                id: 'al-shafii',
+                name: 'الإمام الشافعي',
+                fullTitle: 'محمد بن إدريس الشافعي',
+                era: 'العصر العباسي',
+                avatar: 'https://i.postimg.cc/bdX82PF3/arabic-calligraphy-blue-pattern.png?w=200&auto=format&fit=crop&q=80',
+                bio: 'الإمام المجدد وأحد الأئمة الأربعة. تميز شعره بالسلاسة، الحكمة، الزهد والنصح الصادق لتزكية النفوس.',
+                poems: [
+                    {
+                        id: 'shaf-1',
+                        title: 'دع الأيام تفعل ما تشاء',
+                        category: 'حكمة وزهد',
+                        verses: [
+                            { chest: 'دَعِ الأَيّامَ تَفعَلُ ما تَشاءُ', margin: 'وَطِب نَفساً إِذا حَكَمَ القَضاءُ' },
+                            { chest: 'وَلا تَجزَع لِحادِثَةِ اللَيالي', margin: 'فَما لِحَوادِثِ الدُنيا بَقاءُ' },
+                            { chest: 'وَكُن رَجُلاً عَلى الأَهوالِ جَلداً', margin: 'وَشيمَتُكَ السَماحَةُ وَالوَفاءُ' }
+                        ]
+                    },
+                    {
+                        id: 'shaf-2',
+                        title: 'نعيب زماننا والعيب فينا',
+                        category: 'أخلاق وسلوك',
+                        verses: [
+                            { chest: 'نَعيبُ زَمانَنا وَالعَيبُ فينا', margin: 'وَما لِزَمانِنا عَيبٌ سِوانا' },
+                            { chest: 'وَنَهجو ذا الزَمانَ بِغَيرِ ذَنبٍ', margin: 'وَلَو نَطَقَ الزَمانُ لَنا هَجانا' }
+                        ]
+                    }
+                ]
+            },
+            {
+                id: 'imru-al-qays',
+                name: 'امرؤ القيس',
+                fullTitle: 'الملك الضليل (امرؤ القيس)',
+                era: 'العصر الجاهلي',
+                avatar: 'https://i.postimg.cc/kMkD3PX4/images-(1).jpg?w=200&auto=format&fit=crop&q=80',
+                bio: 'أمير شعراء الجاهلية ورائد المعلقات، يُلقب بـ "الملك الضليل". نظم أجمل الوصف والغزل في تاريخ العربية.',
+                poems: [
+                    {
+                        id: 'im-1',
+                        title: 'قفا نبك من ذكرى حبيب ومنزل',
+                        category: 'معلقات ووصف',
+                        verses: [
+                            { chest: 'قِفا نَبكِ مِن ذِكرى حَبيبٍ وَمَنزِلِ', margin: 'بِسِقطِ اللِوى بَينَ الدَخولِ فَحَومَلِ' },
+                            { chest: 'فَتوضِحَ فَالمِقراةِ لَم يَعفُ رَسمُها', margin: 'لِما نَسَجَتها مِن جَنوبٍ وَشَمأَلِ' },
+                            { chest: 'وَلَيلٍ كَمَوجِ البَحرِ أَرخى سُدولَهُ', margin: 'عَلَيَّ بِأَنواعِ الهُمومِ لِيَبتَلي' }
+                        ]
+                    }
+                ]
+            },
+            {
+                id: 'al-shabbi',
+                name: 'أبو القاسم الشابي',
+                fullTitle: 'شاعر الخضراء (أبو القاسم الشابي)',
+                era: 'العصر الحديث',
+                avatar: 'https://i.postimg.cc/cHP1SfWD/images-(2).jpg?w=200&auto=format&fit=crop&q=80',
+                bio: 'شاعر تونسي رومانتيكي نابغة، اشتهر بقصائده الحماسية الداعية إلى الحرية، والنهوض، وتذوق جمال الطبيعة.',
+                poems: [
+                    {
+                        id: 'shab-1',
+                        title: 'إرادة الحياة',
+                        category: 'حماس ووطنية',
+                        verses: [
+                            { chest: 'إِذا الشَّعْبُ يَوْماً أَرادَ الحَياةَ', margin: 'فَلا بُدَّ أَنْ يَسْتَجِيبَ القَدَر' },
+                            { chest: 'وَلا بُدَّ لِلَّيْلِ أَنْ يَنْجَلِي', margin: 'وَلا بُدَّ لِلْقَيْدِ أَنْ يَنْكَسِر' },
+                            { chest: 'وَمَنْ لَمْ يُعَانِقْهُ شَوْقُ الحَياةِ', margin: 'تَبَخَّرَ فِي جَوِّها وَانْدَثَر' }
+                        ]
+                    }
+                ]
+            },
+            {
+                id: 'ibn-zaidoun',
+                name: 'ابن زيدون',
+                fullTitle: 'أبو الوليد ابن زيدون',
+                era: 'العصر الأندلسي',
+                avatar: 'https://i.postimg.cc/YqMKmddy/images-(3).jpg?w=200&auto=format&fit=crop&q=80',
+                bio: 'وزير وشاعر أندلسي كبير، يُعد من أبرز عشاق وشعراء قرطبة. اشتهر بنونيته الخالدة التي وجهها لولادة بنت المستكفي.',
+                poems: [
+                    {
+                        id: 'iz-1',
+                        title: 'أضْحَى التَّنَائِي بَدِيلاً مِنْ تَنَاجِينَا', margin: 'غزل وشوق',
+                        verses: [
+                            { chest: 'أَضْحَى التَّنَائِي بَدِيلاً مِنْ تَنَاجِينَا', margin: 'وَنَابَ عَنْ طِيبِ لُقْيَانَا تَجَافِينَا' },
+                            { chest: 'بِنْتُم وَبِنَّا فَمَا ابْتَلَّتْ جَوَانِحُنَا', margin: 'شَوْقاً إِلَيْكُمْ وَلا جَفَّتْ مَقِينا' },
+                            { chest: 'إِنَّ الزَّمَانَ الَّذِي مَا زَالَ يُضْحِكُنَا', margin: 'أُنْساً بِقُرْبِكُمْ قَدْ عَادَ يُبْكِينَا' }
+                        ]
+                    }
+                ]
+            },
+            {
+                id: 'al-khansa',
+                name: 'الخنساء',
+                fullTitle: 'تماضر بنت عمرو (الخنساء)',
+                era: 'العصر المخضرم (الجاهلي/الإسلامي)',
+                avatar: 'https://i.postimg.cc/Kvvp2wqb/images-(4).jpg?w=200&auto=format&fit=crop&q=80',
+                bio: 'أشعر شواعر العرب على الإطلاق. اشتهرت بقصائد الرثاء الخالدة في أخويها صخر ومعاوية وبلاغتها العالية.',
+                poems: [
+                    {
+                        id: 'kh-1',
+                        title: 'أعيني جودا ولا تجصدا',
+                        category: 'رثاء',
+                        verses: [
+                            { chest: 'أَعَيْنَيَّ جُودَا وَلا تَجْمُدَا', margin: 'أَلا تَبْكِيَانِ لِصَخْرِ النَّدَى' },
+                            { chest: 'أَلا تَبْكِيَانِ الجَرِيءَ الجَمِيلَ', margin: 'أَلا تَبْكِيَانِ الفَتَى السَّيِّدَا' },
+                            { chest: 'وَإِنَّ صَخْراً لَتَأْتَمَّ الهُدَاةُ بِهِ', margin: 'كَأَنَّهُ عَلَمٌ فِي رَأْسِهِ نَارُ' }
+                        ]
+                    }
+                ]
+            },
+            {
+                id: 'ghazi-algosaibi',
+                name: 'غازي القصيبي',
+                fullTitle: 'الدكتور غازي القصيبي',
+                era: 'العصر المعاصر',
+                avatar: 'https://i.postimg.cc/2S1HqvNg/images-(5).jpg?w=200&auto=format&fit=crop&q=80',
+                bio: 'شاعر وأديب وسياسي سعودي بارز. تميزت قصائده بالعمق الإنساني، والوطنية الشديدة، والسلاسة العالية.',
+                poems: [
+                    {
+                        id: 'gh-1',
+                        title: 'حديقة الغروب',
+                        category: 'تأمل وحكمة',
+                        verses: [
+                            { chest: 'خَمْسٌ وَسِتُّونَ فِي شَكٍّ وَفِي أَمَلِ', margin: 'رَحِيلُ عُمْرٍ أُمَضَّتْهُ يَدُ العَجَلِ' },
+                            { chest: 'أَقْبَلْتُ أَسْعَى وَخَلْفِي المَوْتُ يَطْلُبُنِي', margin: 'وَمَا شَعَرْتُ بِأَنِّي صِرْتُ فِي الأَجَلِ' }
+                        ]
+                    }
+                ]
+            }
+        ];
+
+        // State Management
+        let currentPoet = null;
+        let currentPoem = null;
+        let poemFontSize = 22;
+        let currentEraFilter = 'الكل';
+        let favorites = JSON.parse(localStorage.getItem('diwan_favorites') || '[]');
+
+        window.onload = function() {
+            renderErasFilterBar();
+            renderPoets();
+            updateBreadcrumb();
+            updateFavBadge();
+        };
+
+        // Render Era Filter Buttons Bar
+        function renderErasFilterBar() {
+            const eras = ['الكل', 'العصر الجاهلي', 'العصر العباسي', 'العصر الأندلسي', 'العصر الحديث', 'العصر المعاصر'];
+            const container = document.getElementById('eras-filter-bar');
+            container.innerHTML = eras.map(era => `
+                <button onclick="filterByEra('${era}')" class="px-4 py-1.5 rounded-full text-xs font-bold transition-all border ${currentEraFilter === era ? 'bg-gold-500 text-slate-950 border-gold-400 shadow-md shadow-gold-500/20' : 'bg-royal-900/60 text-slate-300 border-gold-500/20 hover:border-gold-500/50'}">
+                    ${era}
+                </button>
+            `).join('');
+        }
+
+        function filterByEra(era) {
+            currentEraFilter = era;
+            renderErasFilterBar();
+            renderPoets();
+        }
+
+        // Navigation Controller
+        function navigateTo(view, poetId = null, poemId = null) {
+            document.getElementById('view-poets').classList.add('hidden');
+            document.getElementById('view-poems').classList.add('hidden');
+            document.getElementById('view-single-poem').classList.add('hidden');
+            document.getElementById('view-favorites').classList.add('hidden');
+            document.getElementById('view-search-results').classList.add('hidden');
+
+            if (view === 'poets') {
+                currentPoet = null;
+                currentPoem = null;
+                document.getElementById('view-poets').classList.remove('hidden');
+            } else if (view === 'poems') {
+                if (poetId) currentPoet = poetsData.find(p => p.id === poetId);
+                currentPoem = null;
+                renderPoetPoems();
+                document.getElementById('view-poems').classList.remove('hidden');
+            } else if (view === 'single-poem') {
+                if (poetId) currentPoet = poetsData.find(p => p.id === poetId);
+                if (poemId && currentPoet) currentPoem = currentPoet.poems.find(p => p.id === poemId);
+                renderSinglePoem();
+                document.getElementById('view-single-poem').classList.remove('hidden');
+            } else if (view === 'favorites') {
+                renderFavorites();
+                document.getElementById('view-favorites').classList.remove('hidden');
+            }
+
+            updateBreadcrumb();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Breadcrumb Trail Dynamic Updater
+        function updateBreadcrumb() {
+            const container = document.getElementById('breadcrumb-container');
+            let html = `<button onclick="navigateTo('poets')" class="hover:text-gold-400 transition-colors"><i class="fa-solid fa-house ml-1"></i> الرئيسية</button>`;
+
+            if (currentPoet) {
+                html += ` <i class="fa-solid fa-chevron-left text-[10px] opacity-40"></i> `;
+                html += `<button onclick="navigateTo('poems', '${currentPoet.id}')" class="hover:text-gold-400 transition-colors flex items-center gap-1">${currentPoet.name} ${VERIFIED_BADGE_SVG}</button>`;
+            }
+
+            if (currentPoem) {
+                html += ` <i class="fa-solid fa-chevron-left text-[10px] opacity-40"></i> `;
+                html += `<span class="text-gold-400 font-bold">${currentPoem.title}</span>`;
+            }
+
+            container.innerHTML = html;
+        }
+
+        // Render List of Poets Grid
+        function renderPoets() {
+            const grid = document.getElementById('poets-grid');
+            const filteredPoets = currentEraFilter === 'الكل' 
+                ? poetsData 
+                : poetsData.filter(p => p.era.includes(currentEraFilter));
+
+            if (filteredPoets.length === 0) {
+                grid.innerHTML = `<p class="col-span-full text-center text-slate-400 py-12">لا يوجد شعراء مدرجون في هذا العصر حالياً.</p>`;
+                return;
+            }
+
+            grid.innerHTML = filteredPoets.map(poet => `
+                <div onclick="navigateTo('poems', '${poet.id}')" class="glass-card rounded-3xl p-5 border border-gold-500/20 hover:border-gold-500/60 transition-all duration-300 hover:-translate-y-2 cursor-pointer flex flex-col justify-between group shadow-xl">
+                    <div class="space-y-4">
+                        <div class="flex items-center gap-3.5">
+                            <div class="relative">
+                                <img src="${poet.avatar}" alt="${poet.name}" class="w-16 h-16 rounded-2xl object-cover border-2 border-gold-500/40 group-hover:border-gold-400 transition-colors shadow-md">
+                                <span class="absolute -bottom-1 -right-1 bg-gold-600 text-slate-950 text-[10px] font-black px-2 py-0.5 rounded-full shadow-sm">
+                                    ${poet.poems.length} قصائد
+                                </span>
+                            </div>
+                            <div>
+                                <div class="flex items-center gap-1">
+                                    <h3 class="font-black text-lg text-slate-100 dark:text-slate-100 light:text-slate-800 group-hover:text-gold-400 transition-colors">${poet.name}</h3>
+                                    ${VERIFIED_BADGE_SVG}
+                                </div>
+                                <p class="text-xs text-gold-500/90 font-bold mt-0.5">${poet.era}</p>
+                            </div>
+                        </div>
+                        <p class="text-xs text-slate-400 dark:text-slate-400 light:text-slate-600 line-clamp-3 leading-relaxed">${poet.bio}</p>
+                    </div>
+
+                    <div class="mt-5 pt-3.5 border-t border-slate-800/80 dark:border-slate-800/80 light:border-slate-200 flex items-center justify-between text-xs font-bold text-gold-400 group-hover:translate-x-[-2px] transition-transform">
+                        <span>استعرض القصائد</span>
+                        <i class="fa-solid fa-arrow-left"></i>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Render Poet Header Banner and Poems Cards
+        function renderPoetPoems() {
+            if (!currentPoet) return;
+
+            const poetHeader = document.getElementById('poet-header');
+            poetHeader.innerHTML = `
+                <div class="flex flex-col md:flex-row items-center gap-6">
+                    <img src="${currentPoet.avatar}" alt="${currentPoet.name}" class="w-28 h-28 rounded-2xl object-cover border-4 border-gold-500/50 shadow-2xl">
+                    <div class="text-center md:text-right space-y-2">
+                        <span class="inline-block px-3.5 py-1 bg-gold-500/10 border border-gold-500/30 text-gold-400 text-xs rounded-full font-bold mb-1">${currentPoet.era}</span>
+                        <div class="flex items-center justify-center md:justify-start gap-2">
+                            <h2 class="text-3xl font-black text-slate-100 dark:text-slate-100 light:text-slate-900">${currentPoet.fullTitle}</h2>
+                            ${VERIFIED_BADGE_SVG}
+                        </div>
+                        <p class="text-xs sm:text-sm text-slate-300 max-w-3xl leading-relaxed">${currentPoet.bio}</p>
+                    </div>
+                </div>
+            `;
+
+            const poemsGrid = document.getElementById('poems-grid');
+            poemsGrid.innerHTML = currentPoet.poems.map(poem => `
+                <div onclick="navigateTo('single-poem', '${currentPoet.id}', '${poem.id}')" class="glass-card rounded-2xl p-5 border border-gold-500/20 hover:border-gold-500/60 transition-all cursor-pointer flex items-center justify-between group shadow-lg">
+                    <div class="space-y-2 max-w-[80%]">
+                        <span class="text-[10px] bg-gold-500/10 text-gold-400 px-2 py-0.5 rounded font-bold">${poem.category || 'شعر عالي'}</span>
+                        <h4 class="font-black text-xl text-slate-200 dark:text-slate-200 light:text-slate-800 group-hover:text-gold-400 transition-colors font-amiri">${poem.title}</h4>
+                        <p class="text-xs text-slate-400 font-amiri line-clamp-1 italic text-gold-500/80">
+                            "${poem.verses[0].chest} ... ${poem.verses[0].margin}"
+                        </p>
+                    </div>
+                    <div class="w-11 h-11 rounded-2xl bg-gold-500/10 flex items-center justify-center text-gold-400 group-hover:bg-gold-500 group-hover:text-slate-950 transition-all shadow-md">
+                        <i class="fa-solid fa-book-open text-lg"></i>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Render Single Poem View
+        function renderSinglePoem() {
+            if (!currentPoem || !currentPoet) return;
+
+            document.getElementById('poem-title').innerText = currentPoem.title;
+            document.getElementById('poem-category-tag').innerText = currentPoem.category || 'روائع الشعر العربي';
+            
+            document.getElementById('poem-poet-badge-container').innerHTML = `
+                <span>من روائع الشاعر: ${currentPoet.name}</span>
+                ${VERIFIED_BADGE_SVG}
+            `;
+
+            const container = document.getElementById('poem-verses-container');
+            container.style.fontSize = `${poemFontSize}px`;
+
+            container.innerHTML = currentPoem.verses.map((verse) => `
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-2 md:gap-10 items-center border-b border-slate-800/50 dark:border-slate-800/50 light:border-slate-200/80 pb-4 font-amiri text-slate-200 dark:text-slate-200 light:text-slate-900">
+                    <div class="text-center md:text-left font-bold tracking-wide">${verse.chest}</div>
+                    <div class="text-center md:text-right font-bold text-amber-300 dark:text-amber-300 light:text-amber-800 tracking-wide">${verse.margin}</div>
+                </div>
+            `).join('');
+
+            updateBookmarkButtonUI();
+        }
+
+        // Font Size Adjuster Function
+        function changeFontSize(delta) {
+            poemFontSize = Math.min(Math.max(poemFontSize + delta, 16), 38);
+            document.getElementById('font-size-label').innerText = `${poemFontSize}px`;
+            const container = document.getElementById('poem-verses-container');
+            if (container) {
+                container.style.fontSize = `${poemFontSize}px`;
+            }
+        }
+
+        // STRICTLY COPY VERSES ONLY (NO POET NAME, TITLE, OR METADATA)
+        function copyCurrentPoemLinesOnly() {
+            if (!currentPoem) return;
+
+            // Collect strictly the poem's chest and margin verses
+            const versesOnlyText = currentPoem.verses
+                .map(v => `${v.chest}  ***  ${v.margin}`)
+                .join('\n');
+
+            copyTextToClipboard(versesOnlyText);
+            showToast('تم نسخ أبيات القصيدة فقط بنجاح!');
+        }
+
+        // Fallback Clipboard Executer for iframe environments
+        function copyTextToClipboard(text) {
+            const textarea = document.createElement('textarea');
+            textarea.value = text;
+            textarea.style.position = 'fixed';
+            textarea.style.opacity = '0';
+            document.body.appendChild(textarea);
+            textarea.select();
+            try {
+                document.execCommand('copy');
+            } catch (err) {
+                console.error('Clipboard copy failed:', err);
+            }
+            document.body.removeChild(textarea);
+        }
+
+        // Toast Notification System
+        function showToast(msg) {
+            const toast = document.getElementById('toast-notification');
+            const toastMsg = document.getElementById('toast-message');
+            toastMsg.innerText = msg;
+            toast.classList.remove('hidden');
+
+            setTimeout(() => {
+                toast.classList.add('hidden');
+            }, 3000);
+        }
+
+        // Favorites System (Local Storage)
+        function toggleCurrentPoemFavorite() {
+            if (!currentPoem || !currentPoet) return;
+
+            const favKey = `${currentPoet.id}___${currentPoem.id}`;
+            const existingIndex = favorites.findIndex(f => f.key === favKey);
+
+            if (existingIndex >= 0) {
+                favorites.splice(existingIndex, 1);
+                showToast('تمت إزالة القصيدة من المفضلة');
+            } else {
+                favorites.push({
+                    key: favKey,
+                    poetId: currentPoet.id,
+                    poemId: currentPoem.id,
+                    poetName: currentPoet.name,
+                    poemTitle: currentPoem.title,
+                    category: currentPoem.category
+                });
+                showToast('تمت إضافة القصيدة إلى المفضلة!');
+            }
+
+            localStorage.setItem('diwan_favorites', JSON.stringify(favorites));
+            updateFavBadge();
+            updateBookmarkButtonUI();
+        }
+
+        function updateBookmarkButtonUI() {
+            if (!currentPoem || !currentPoet) return;
+            const favKey = `${currentPoet.id}___${currentPoem.id}`;
+            const isFav = favorites.some(f => f.key === favKey);
+
+            const icon = document.getElementById('bookmark-icon');
+            const text = document.getElementById('bookmark-text');
+
+            if (isFav) {
+                icon.className = 'fa-solid fa-bookmark text-gold-400';
+                text.innerText = 'محفوظ بالمفضلة';
+            } else {
+                icon.className = 'fa-regular fa-bookmark text-gold-400';
+                text.innerText = 'حفظ في المفضلة';
+            }
+        }
+
+        function updateFavBadge() {
+            document.getElementById('fav-count-badge').innerText = favorites.length;
+        }
+
+        function renderFavorites() {
+            const grid = document.getElementById('favorites-grid');
+            if (favorites.length === 0) {
+                grid.innerHTML = `<p class="col-span-full text-center text-slate-400 py-12">لم تقم بإضافة أي قصيدة إلى المفضلة بعد.</p>`;
+                return;
+            }
+
+            grid.innerHTML = favorites.map(fav => `
+                <div onclick="navigateTo('single-poem', '${fav.poetId}', '${fav.poemId}')" class="glass-card p-5 rounded-2xl border border-gold-500/20 hover:border-gold-500/60 cursor-pointer flex justify-between items-center group">
+                    <div class="space-y-1">
+                        <span class="text-[10px] bg-gold-500/10 text-gold-400 font-bold px-2 py-0.5 rounded">${fav.category || 'قصيدة'}</span>
+                        <h4 class="font-black text-slate-200 dark:text-slate-200 light:text-slate-800 group-hover:text-gold-400 transition-colors font-amiri text-lg">${fav.poemTitle}</h4>
+                        <p class="text-xs text-slate-400 flex items-center gap-1">${fav.poetName} ${VERIFIED_BADGE_SVG}</p>
+                    </div>
+                    <i class="fa-solid fa-arrow-left text-gold-400 group-hover:translate-x-[-4px] transition-transform"></i>
+                </div>
+            `).join('');
+        }
+
+        // Live Real-Time Search Query Engine
+        function handleSearch() {
+            const query = document.getElementById('search-input').value.trim().toLowerCase();
+            executeSearch(query);
+        }
+
+        function handleSearchMobile() {
+            const query = document.getElementById('search-input-mobile').value.trim().toLowerCase();
+            executeSearch(query);
+        }
+
+        function executeSearch(query) {
+            if (!query) {
+                navigateTo('poets');
+                return;
+            }
+
+            document.getElementById('view-poets').classList.add('hidden');
+            document.getElementById('view-poems').classList.add('hidden');
+            document.getElementById('view-single-poem').classList.add('hidden');
+            document.getElementById('view-favorites').classList.add('hidden');
+            document.getElementById('view-search-results').classList.remove('hidden');
+
+            const grid = document.getElementById('search-results-grid');
+            let results = [];
+
+            poetsData.forEach(poet => {
+                if (poet.name.toLowerCase().includes(query) || poet.era.toLowerCase().includes(query)) {
+                    results.push({
+                        type: 'شاعر',
+                        title: poet.name,
+                        subtitle: poet.era,
+                        poetId: poet.id,
+                        poemId: null
+                    });
+                }
+
+                poet.poems.forEach(poem => {
+                    const matchTitle = poem.title.toLowerCase().includes(query);
+                    const matchVerses = poem.verses.some(v => v.chest.includes(query) || v.margin.includes(query));
+
+                    if (matchTitle || matchVerses) {
+                        results.push({
+                            type: 'قصيدة',
+                            title: poem.title,
+                            subtitle: `الشاعر: ${poet.name}`,
+                            poetId: poet.id,
+                            poemId: poem.id
+                        });
+                    }
+                });
+            });
+
+            document.getElementById('search-results-title').innerText = `نتائج البحث عن: "${query}" (${results.length})`;
+
+            if (results.length === 0) {
+                grid.innerHTML = `<p class="col-span-full text-center text-slate-400 py-12">لم نجد أي نتائج مطابقة لكلمة البحث.</p>`;
+                return;
+            }
+
+            grid.innerHTML = results.map(item => `
+                <div onclick="navigateTo('${item.poemId ? 'single-poem' : 'poems'}', '${item.poetId}', '${item.poemId}')" class="glass-card p-4 rounded-xl border border-gold-500/20 hover:border-gold-500/60 cursor-pointer flex justify-between items-center group">
+                    <div>
+                        <span class="inline-block px-2 py-0.5 bg-gold-500/10 text-gold-400 text-[10px] font-bold rounded mb-1">${item.type}</span>
+                        <h4 class="font-bold text-slate-200 dark:text-slate-200 light:text-slate-800 group-hover:text-gold-400 transition-colors">${item.title}</h4>
+                        <p class="text-xs text-slate-400 flex items-center gap-1">${item.subtitle} ${item.type === 'شاعر' ? VERIFIED_BADGE_SVG : ''}</p>
+                    </div>
+                    <i class="fa-solid fa-arrow-left text-gold-400 group-hover:translate-x-[-4px] transition-transform"></i>
+                </div>
+            `).join('');
+        }
+
+        // Dark / Light Mode Switcher
+        function toggleTheme() {
+    const html = document.documentElement;
+    const body = document.getElementById('body-app');
+    if (html.classList.contains('dark')) {
+        html.classList.remove('dark');
+        html.classList.add('light');
+        body.style.backgroundColor = "#f7f3e9"; /* لون كريمي ورقي أندلسي فاخر مريح للعين */
+        body.style.color = "#1e293b";
+    } else {
+        html.classList.remove('light');
+        html.classList.add('dark');
+        body.style.backgroundColor = "#04070d"; /* أسود ملكي */
+        body.style.color = "#f8fafc";
+    }
+}
+
+    </script>
+</body>
+</html>
